@@ -1,0 +1,59 @@
+﻿@model Project.Models.MRTTicket
+
+    <head>
+        <title>Ticket Invoice </title>
+        <link href="~/css/MRTTicket.css" rel="stylesheet" />
+    </head>
+    <body>
+        <h5>Ticket Information</h5>
+        <p>
+            <label> Ticket Id :</label>
+            @Html.DisplayFor(x => x.TicketId)
+        </p>
+        <p>
+            <label> Date and time :</label>
+            @Html.DisplayFor(x => x.TicketDateTime)
+        </p>
+        <p>
+            <label> Name :</label>
+            @Html.DisplayFor(x => x.Name)
+        </p>
+        <p>
+            <label> IC / Passport :</label>
+            @Html.DisplayFor(x => x.Phone)
+        </p>
+        <p>
+            <label> Email :</label>
+            @Html.DisplayFor(x => x.Email)
+        </p>
+        <p>
+            <label> Status :</label>
+            @Html.DisplayFor(x => x.DictStatus[Model.IndexStatus])
+        </p>
+        <p>
+            <label>From Station :</label>
+            @Html.DisplayFor(x => x.DictFStation[Model.IndexFStation])
+        </p>
+        <p>
+            <label>To Station :</label>
+            @Html.DisplayFor(x => x.DictTStation[Model.IndexTStation])
+        </p>
+        <p>
+            <label> Package :</label>
+            @Html.DisplayFor(x => x.DictPackage[Model.IndexPackage])
+        </p>
+        <p>
+            <label>Subtotal :</label>
+            @Html.DisplayFor(x => x.Subtotal)
+        </p>
+        <p>
+            <label>Discount :</label>
+            @Html.DisplayFor(x => x.Discount)
+        </p>
+        <p>
+            <label>Total Amount:</label>
+            @Html.DisplayFor(x => x.Amount)
+        </p>
+
+        <br />
+    </body>

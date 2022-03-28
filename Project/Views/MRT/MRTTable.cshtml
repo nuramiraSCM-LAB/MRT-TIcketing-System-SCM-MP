@@ -1,0 +1,23 @@
+﻿<p>MRT Fares</p>
+<table width="100%" border="1">
+    <tr align="center">
+        <td>FromStation</td>
+        @foreach (string to in ViewBag.ToStations)
+        {
+            <td>@to</td>
+        }
+    </tr>
+
+    @for (int row = 0; row < 31; row++)
+    {
+        <tr align="center">
+            <td>@ViewBag.FromStations[row]</td>
+            @for (int col = 0; col < 31; col++)
+            {
+                <td>
+                    @ViewBag.Fares[row, col].ToString("c")
+                </td>
+            }
+        </tr>
+    }
+</table>

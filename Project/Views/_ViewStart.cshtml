@@ -1,0 +1,17 @@
+﻿<link href="~/css/site.css" rel="stylesheet" />
+<link href="~/css/MRTTicket.css" rel="stylesheet" />
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+@{
+    string controller = Convert.ToString(Context.Request.HttpContext.Request.RouteValues["MRTController"]);
+    dynamic Layout;
+
+    if (controller == "Admin")
+    {
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+}  
+

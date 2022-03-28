@@ -1,0 +1,124 @@
+﻿@model Project.Models.MRTTicket
+
+@using Microsoft.AspNetCore.Identity
+@using Project.Areas.Identity.Data
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{ ViewData["Title"] = "Create";
+
+    if (SignInManager.IsSignedIn(User))
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    else
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";}
+
+<link href="~/css/MRTTicket.css" rel="stylesheet" />
+<h1>Create</h1>
+
+<h4>MRTTicket</h4>
+<hr />
+@using (Html.BeginForm())
+            {
+
+            
+    <h5>MRT Ticket Infomation</h5>
+<div class="row">
+    <p class="col-md-4">
+        <label>@Html.DisplayNameFor(x => x.IndexFStation)</label>
+        @Html.DropDownListFor(x => x.IndexFStation,
+                      new SelectList(Model.DictFStation, "Key", "Value"),
+                      "Select Station:", new { @class = "form-control dropbtn" })
+        @Html.ValidationMessageFor(x => x.IndexFStation, "",
+                       new { @class = "text-danger" })
+    </p>
+    <p class="col-md-4">
+        <label>@Html.DisplayNameFor(x => x.IndexTStation)</label>
+        @Html.DropDownListFor(x => x.IndexTStation,
+                      new SelectList(Model.DictTStation, "Key", "Value"),
+                      "Select Station:", new { @class = "form-control dropbtn" })
+        @Html.ValidationMessageFor(x => x.IndexTStation, "",
+                       new { @class = "text-danger" })
+
+    </p>
+</div>
+<div class="row">
+
+    <p class="col-md-4">
+        <label>@Html.DisplayNameFor(x => x.IndexStatus)</label>
+        @Html.DropDownListFor(x => x.IndexStatus,
+                      new SelectList(Model.DictStatus, "Key", "Value"), "Select Status:"
+                      , new { @class = "form-control dropbtn" })
+        @Html.ValidationMessageFor(x => x.IndexStatus, "",
+                       new { @class = "text-danger" })
+    </p>
+    <div style="width:auto">
+        <p class="col-md-7">
+
+            <label>@Html.DisplayNameFor(x => x.IndexPackage)</label>
+            
+            @Html.RadioButtonFor(x => x.IndexPackage, 0,
+            new SelectList(Model.DictPackage, "Key", "Value"))
+            One Way
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            @Html.RadioButtonFor(x => x.IndexPackage, 1,
+            new SelectList(Model.DictPackage, "Key", "Value"))
+            Return
+        </p>
+    </div>
+
+</div>
+
+
+<h5>Personal Information</h5>
+<div class="row">
+    <p class="col-md-4">
+        <label>@Html.DisplayNameFor(x => x.Name)</label>
+        @Html.TextBoxFor(x => x.Name, new { @class = "txt" })
+        @Html.ValidationMessageFor(x => x.Name, "",
+                       new { @class = "text-danger" })
+    </p>
+    <p class="col-md-4">
+        <label>@Html.DisplayNameFor(x => x.IC)</label>
+        @Html.TextBoxFor(x => x.IC, new { @class = "txt" })
+        @Html.ValidationMessageFor(x => x.IC, "",
+                       new { @class = "text-danger" })
+    </p>
+</div>
+<div class="row">
+    <p class="col-md-4">
+        <label>@Html.DisplayNameFor(x => x.Phone)</label>
+        @Html.TextBoxFor(x => x.Phone, new { @class = "txt" })
+        @Html.ValidationMessageFor(x => x.Phone, "",
+                       new { @class = "text-danger" })
+    </p>
+
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <p class="col-md-4">
+
+            <label asp-for="Email"></label>
+            <input asp-for="Email" class="txt" value="@UserManager.GetUserName(User)" readonly />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </p> }
+    else
+    {
+        <p class="col-md-4">
+            <label>@Html.DisplayNameFor(x => x.Email)</label>
+            @Html.TextBoxFor(x => x.Email, new { @class = "txt" })
+        </p>}
+
+</div>
+<br/>
+<p>
+    <input type="submit" value="Submit" class="btn btn-primary" style="margin-left:465px; width:130px" />
+    
+    <a class="btn btn-primary" style="width:130px" asp-action="Index">Back To List</a>
+</p>
+}
+<div>
+    <br />
+    <br />
+</div>

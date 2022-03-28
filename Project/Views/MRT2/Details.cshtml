@@ -1,0 +1,108 @@
+﻿@model Project.Models.MRTTicket
+
+@using Microsoft.AspNetCore.Identity
+@using Project.Areas.Identity.Data
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    ViewData["Title"] = "Details"; 
+    if (SignInManager.IsSignedIn(User))
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    else
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>MRTTicket</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ViewDateTime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ViewDateTime)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ViewId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ViewId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IC)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IC)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IndexStatus)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DictStatus[Model.IndexStatus])
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IndexFStation)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DictFStation[Model.IndexFStation])
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IndexTStation)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DictTStation[Model.IndexTStation])
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IndexPackage)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DictPackage[Model.IndexPackage])
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Subtotal)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Subtotal)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Discount)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Discount)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Amount)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Amount)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ViewId }) |
+    <a asp-action="Index">Back to List</a>
+</div>

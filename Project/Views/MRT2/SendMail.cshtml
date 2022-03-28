@@ -1,0 +1,24 @@
+﻿@model Project.Models.MRTTicket
+
+@using Microsoft.AspNetCore.Identity
+@using Project.Areas.Identity.Data
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+    <link href="~/css/MRTTicket.css" rel="stylesheet" />
+@{
+
+    if (SignInManager.IsSignedIn(User))
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    else
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";}
+
+<p>@ViewBag.Message</p>
+<p>@Html.Raw(ViewBag.Body)</p>
+
+<form>
+
+    <a class="btn btn-primary" style="width:130px" asp-action="Index">Back To List</a>
+</form>

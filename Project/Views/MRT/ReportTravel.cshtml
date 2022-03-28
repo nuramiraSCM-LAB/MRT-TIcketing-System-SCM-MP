@@ -1,0 +1,65 @@
+﻿@model Project.Models.MRTTicket
+@using Microsoft.AspNetCore.Identity
+@using Project.Areas.Identity.Data
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@{
+    if (SignInManager.IsSignedIn(User))
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    else
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/css/MRTTicket.css" rel="stylesheet" />
+@using (Html.BeginForm())
+{
+    <h5>Check Ticket Price</h5>
+    <div class="row">
+        <p class="col-md-4">
+
+            <label>@Html.DisplayNameFor(x => x.IndexFStation)</label>
+            @Html.DropDownListFor(x => x.IndexFStation,
+           new SelectList(Model.DictFStation, "Key", "Value"), "Select Station:",
+           new { @class = "form-control dropbtn" })
+            @Html.ValidationMessageFor(x => x.IndexFStation, "",
+            new { @class = "text-danger" })
+        </p>
+        <p class="col-md-4">
+            <label>@Html.DisplayNameFor(x => x.IndexTStation)</label>
+            @Html.DropDownListFor(x => x.IndexTStation,
+           new SelectList(Model.DictTStation, "Key", "Value"), "Select Station:"
+           , new { @class = "form-control dropbtn" })@Html.ValidationMessageFor(x => x.IndexTStation, "",
+new { @class = "text-danger" })
+
+    </p>
+</div>
+<div class="row">
+
+    <p class="col-md-4">
+        <label>@Html.DisplayNameFor(x => x.IndexStatus)</label>
+        @Html.DropDownListFor(x => x.IndexStatus,
+       new SelectList(Model.DictStatus, "Key", "Value"), "Select Status:"
+       , new { @class = "form-control dropbtn" })
+    </p>
+    <div style="width:auto">
+        <p class="col-md-7">
+
+            <label>@Html.DisplayNameFor(x => x.IndexPackage)</label>
+
+            @Html.RadioButtonFor(x => x.IndexPackage, 0,
+            new SelectList(Model.DictPackage, "Key", "Value"))
+            One Way
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            @Html.RadioButtonFor(x => x.IndexPackage, 1,
+            new SelectList(Model.DictPackage, "Key", "Value"))
+            Return
+        </p>
+    </div>
+</div>
+<br />
+<p>
+    <input type="submit" value="Submit" class="btn btn-primary" />
+</p>
+}

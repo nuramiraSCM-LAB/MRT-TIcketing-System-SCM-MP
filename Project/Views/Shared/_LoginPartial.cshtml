@@ -1,0 +1,29 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Project.Areas.Identity.Data
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<link href="~/css/MRTTicket.css" rel="stylesheet" />
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li>
+            <a id="manage" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+        </li>
+        <li>
+            <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button style="margin-top: 10px; background-color: #151B54; color: white; border: 2px solid #4863A0" type="submit" >Logout</button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <li>
+            <a  id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
+        </li>
+        <li>
+            <a  id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        </li>
+    }
+</ul>

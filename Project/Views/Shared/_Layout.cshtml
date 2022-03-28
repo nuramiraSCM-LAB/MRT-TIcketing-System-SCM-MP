@@ -1,0 +1,74 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Project.Areas.Identity.Data
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Project</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="~/css/MRTTicket.css" rel="stylesheet" />
+</head>
+<body>
+    <header>
+
+        <nav style="background-color: #151B54" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
+            <div class="container">
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li>
+                            <a class="ex1 active" style="height: 52px; background-color: #EBF4FA" asp-area="" asp-controller="Home" asp-action="Index">
+                                <img src="~/mrt logo.png" style="width:80px" />
+                            </a>
+                        </li>
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <li class="nav-item">
+                                <a  asp-area="" asp-controller="MRT2" asp-action="Create">Book Tickets</a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-area="" asp-controller="MRT2" asp-action="Index">My Booking</a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-area="" asp-controller="MRT" asp-action="ReportTravel">Ticket Price</a>
+                            </li>
+
+                        }
+
+                    </ul>
+                </div>
+                <div class="d-sm-inline-flex flex-sm-row-reverse">
+
+                    <partial name="_LoginPartial.cshtml" />
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top ft text-muted">
+        <div class="container">
+            <span style="color:white">&copy;2021 - Project - </span>
+            <a asp-area="" asp-controller="Home" asp-action="Privacy">
+                <span style="color: white">Privacy Policy</span>
+            </a><span>l</span>
+            <a asp-area="" asp-controller="Home" asp-action="Terms">
+                <span style="color: white">Terms Condition</span>
+            </a>&nbsp;
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

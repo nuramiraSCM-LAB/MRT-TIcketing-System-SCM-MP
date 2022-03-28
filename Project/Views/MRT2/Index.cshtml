@@ -1,0 +1,97 @@
+﻿@model IEnumerable<Project.Models.MRTTicket>
+
+@using Microsoft.AspNetCore.Identity
+@using Project.Areas.Identity.Data
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    ViewData["Title"] = "Index";
+    if (SignInManager.IsSignedIn(User))
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    else
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<link href="~/css/MRTTicket.css" rel="stylesheet" />
+<h1>Purchased Ticket</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table id="tableuser">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ViewDateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IndexStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IndexFStation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IndexTStation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ViewDateTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DictStatus[item.IndexStatus])
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DictFStation[item.IndexFStation])
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DictTStation[item.IndexTStation])
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    <div class="dropdown2">
+                        <button class="dropbtn2">Action</button>
+                        <div class="dropdown2-content">
+                            @Html.ActionLink("Edit", "Edit", new { id = item.ViewId })
+                            @Html.ActionLink("Details", "Details", new { id = item.ViewId })
+                            @Html.ActionLink("Delete", "Delete", new { id = item.ViewId })
+                            @Html.ActionLink("Mail", "SendMail", new { id = item.ViewId })
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div>
+    <br />
+    <br />
+</div>
