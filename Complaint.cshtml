@@ -1,0 +1,60 @@
+﻿@model Project.Models.Helpdesk
+
+@using Microsoft.AspNetCore.Identity
+@using Project.Areas.Identity.Data
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{ ViewData["Title"] = "Complaint Form";
+
+    if (SignInManager.IsSignedIn(User))
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    else
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";}
+@using (Html.BeginForm())
+{
+<h5>Complaint Form</h5>
+<div class="row">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <p class="col-md-4">
+
+            <label asp-for="userID"></label>
+            <input asp-for="userID" class="txt" value="@UserManager.GetUserId(User)" readonly />
+            <span asp-validation-for="userID" class="text-danger"></span>
+        </p> }
+    else
+    {
+        <p class="col-md-4">
+            <label>@Html.DisplayNameFor(x => x.userID)</label>
+            @Html.TextBoxFor(x => x.userID, new { @class = "txt" })
+        </p>
+    }
+    <br />
+    
+
+    <p class="col-md-4">
+
+
+        <input type="hidden" asp-for="IndexStatus" class="txt" value="0" readonly />
+        <span asp-validation-for="IndexStatus" class="text-danger"></span>
+    </p>
+</div>
+<div  class="row">
+    <p class="col-md-6">
+        <label>@Html.DisplayNameFor(x => x.complain)</label>
+        @Html.TextAreaFor(x => x.complain, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.complain, "",
+        new { @class = "text-danger" })
+    </p>
+</div>
+    <br />
+    <p>
+        <input type="submit" value="Submit" class="btn btn-primary" style="margin-right:465px; width:130px" />
+
+    </p>
+
+}
