@@ -1,0 +1,42 @@
+﻿@model Project.Models.Helpdesk
+
+@using Microsoft.AspNetCore.Identity
+@using Project.Areas.Identity.Data
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+<link href="~/css/MRTTicket.css" rel="stylesheet" />
+<link href="~/css/site.css" rel="stylesheet" />
+@{
+    ViewData["Title"] = "Complain submit";
+    if (SignInManager.IsSignedIn(User))
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    else
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";}
+
+
+
+<head>
+    <title>Complaint </title>
+    <link href="~/css/MRTTicket.css" rel="stylesheet" />
+</head>
+<body>
+    <h5>Form submitted</h5>
+    <p>
+        <label> User Id :</label>
+        @Html.DisplayFor(x => x.userID)
+    </p>
+    <p>
+        <label> Problem :</label>
+        @Html.DisplayFor(x => x.complain)
+    </p>
+    <p>
+        <label> Status :</label>
+        @Html.DisplayFor(x => x.DictStatus[Model.IndexStatus])
+    </p>
+
+
+    <br />
+</body>
