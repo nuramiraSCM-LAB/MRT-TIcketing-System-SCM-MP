@@ -308,6 +308,105 @@ namespace Project.Controllers
                 ViewBag.Message = invalid;
             return View(account);
         }
+        
+        [HttpGet]
+        public IActionResult Complaint()
+        {
 
+            Helpdesk complaint = new Helpdesk();
+                complaint.IndexStatus = -1;
+            return View(complaint);
+        }
+        
+        [HttpPost]
+        public IActionResult Complaint(Helpdesk complaint)
+        {
+            if (ModelState.IsValid)
+            {
+                SqlConnection conn = new SqlConnection(configuration.
+                    GetConnectionString("MRTConnStr"));
+                SqlCommand cmd = new SqlCommand("spCService", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@userid", complaint.userID);
+                if (complaint.complain != null)
+                    cmd.Parameters.AddWithValue("@complaint", complaint.complain);
+                else
+                    cmd.Parameters.AddWithValue("@complaint", " ");
+                if (complaint.feedback != null)
+                    cmd.Parameters.AddWithValue("@feedback", complaint.feedback);
+                else
+                    cmd.Parameters.AddWithValue("@feedback", " ");
+
+                cmd.Parameters.AddWithValue("@status", complaint.IndexStatus);
+              
+                try
+                {
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                catch
+                {
+                    return View(complaint);
+                }
+                finally
+                {
+                    conn.Close();
+                }
+                return View("ComplainSubmit", complaint);
+            }
+            else
+                return View(complaint);
+        }
+        
+        [HttpGet]
+        public IActionResult Feedback()
+        {
+
+            Helpdesk feedbacks = new Helpdesk();
+            feedbacks.IndexStatus = -1;
+            return View(feedbacks);
+        }
+        
+        [HttpPost]
+        public IActionResult Feedback(Helpdesk feedbacks)
+        {
+            if (ModelState.IsValid)
+            {
+                SqlConnection conn = new SqlConnection(configuration.
+                    GetConnectionString("MRTConnStr"));
+                SqlCommand cmd = new SqlCommand("spCService", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@userid", feedbacks.userID);
+                if (feedbacks.complain != null)
+                    cmd.Parameters.AddWithValue("@complaint", feedbacks.complain);
+                else
+                    cmd.Parameters.AddWithValue("@complaint", " ");
+                if (feedbacks.feedback != null)
+                    cmd.Parameters.AddWithValue("@feedback", feedbacks.feedback);
+                else
+                    cmd.Parameters.AddWithValue("@feedback", " ");
+
+                cmd.Parameters.AddWithValue("@status", feedbacks.IndexStatus);
+
+                try
+                {
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                catch
+                {
+                    return View(feedbacks);
+                }
+                finally
+                {
+                    conn.Close();
+                }
+                return View("FeedbackSubmit", feedbacks);
+            }
+            else
+                return View(feedbacks);
+        }
     }
 }
