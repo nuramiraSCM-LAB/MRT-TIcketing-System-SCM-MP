@@ -313,4 +313,31 @@ namespace Project.Models
         public string Phone { get; set; }
 
     }
+    
+    public class Helpdesk
+    {
+        [Display(Name = "User ID")]
+        public string userID { get; set; }
+
+        [Display(Name = "Prolem Occured")]
+        public string complain { get; set; }
+
+        [Display(Name = "Tell us how we can improve")]
+        public string feedback { get; set; }
+        public int IndexStatus { get; set; }
+
+        public IDictionary<int, string> DictStatus
+        {
+            get
+            {
+                return new Dictionary<int, string>()
+                {
+                    { 0, "New" },
+                    { 1, "Pending" },
+                    { 2, "Complete" }
+                };
+            }
+            set { }
+        }
+    }
 }
